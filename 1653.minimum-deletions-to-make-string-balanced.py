@@ -10,15 +10,15 @@ class Solution:
     def minimumDeletions(self, s: str) -> int:
         if len(s) == 1 or s.count("a") == 0 or s.count("b") == 0:
             return 0
-        
-        currentMin = 10000000000000
-        
-        for i in range(len(s)+1):
 
-            count = s[:i].count("b") + s[i:].count("a")
-            if count < currentMin:
-                currentMin = count
-        return currentMin
+        currentMin = 10000000000000
+        initDeletions = s.count("a")
+        deletionsList = [initDeletions]
+
+        for char in s:
+            deletionsList.append(deletionsList[-1] + (1 if char == "b" else -1))
+
+        return min(deletionsList)
 
 
 # @lc code=end
